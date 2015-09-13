@@ -1,0 +1,49 @@
+
+fastcgi_cache_key "$scheme$request_method$host$request_uri";
+fastcgi_cache_path /var/cache/nginx keys_zone=BT_WWW:32m;
+
+server {
+	server_name www.bidtorrent.io;
+
+	root /var/www/io.bidtorrent.www;
+
+	add_header 'Access-Control-Allow-Origin' "$http_origin";
+	add_header 'Access-Control-Allow-Credentials' 'true';
+	add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+
+	location / {
+		try_files /index.html =404;
+	}
+
+	location ~* \.(js|ico|gif|jpg|jpeg|png|PNG|css|html|swf|flv|xml|otf|eot|svg|ttf|woff|woff2|csv)$ {
+		try_files $uri =404;
+	}
+
+	location /api {
+		try_files $uri /api/index.php?$query_string;
+	}
+
+	location /api/bidders {
+		set $cache_bypass 0;
+
+		try_files $uri /api/index.php?$query_string;
+	}
+
+	location ~ \.p12$ {
+		return 403;
+	}
+
+	location ~ \.php$ {
+		if ($cache_bypass = '') {
+			set $cache_bypass 1;
+		}
+
+		fastcgi_cache BT_WWW;
+		fastcgi_cache_bypass $cache_bypass;
+		fastcgi_cache_valid 200 15m;
+
+#		add_header X-Cache $upstream_cache_status;
+
+		include /etc/nginx/fastcgi.conf;
+	}
+}

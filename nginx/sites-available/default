@@ -1,0 +1,5 @@
+
+server {
+    server_name _;
+    rewrite ^ "$scheme://www.bidtorrent.io$request_uri?";
+}

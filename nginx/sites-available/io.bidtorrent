@@ -1,0 +1,12 @@
+
+server {
+	server_name bidtorrent.io;
+
+	root /var/www/io.bidtorrent;
+
+	include /etc/nginx/profiles/static.conf;
+
+    location = / {
+        rewrite ^ http://www.bidtorrent.io/;
+    }
+}

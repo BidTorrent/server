@@ -1,0 +1,22 @@
+
+server {
+	server_name log.bidtorrent.io stats.bidtorrent.io;
+
+	root /var/www/io.bidtorrent.log;
+
+    location /debug {
+        try_files /debug.php =404;
+
+        include /etc/nginx/fastcgi_params;
+    }
+
+	location /imp {
+		try_files /imp.php =404;
+
+		include /etc/nginx/fastcgi_params;
+
+		add_header 'Access-Control-Allow-Origin' "$http_origin";
+		add_header 'Access-Control-Allow-Credentials' 'true';
+		add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+	}
+}

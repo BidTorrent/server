@@ -1,0 +1,8 @@
+
+server {
+	server_name admin.bidtorrent.io;
+
+	root /var/www/io.bidtorrent.admin;
+
+	include /etc/nginx/profiles/php.conf;
+}
