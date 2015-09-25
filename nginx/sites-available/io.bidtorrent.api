@@ -1,23 +1,15 @@
 
 server {
-	server_name www.bidtorrent.io;
+	server_name api.bidtorrent.io;
 
-	root /var/www/io.bidtorrent.www;
+	root /var/www/io.bidtorrent.api;
 
 	add_header 'Access-Control-Allow-Origin' "$http_origin";
 	add_header 'Access-Control-Allow-Credentials' 'true';
 	add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
 
 	location / {
-		try_files /index.html =404;
-	}
-
-	location ~* \.(js|ico|gif|jpg|jpeg|png|PNG|css|html|swf|flv|xml|otf|eot|svg|ttf|woff|woff2|csv)$ {
-		try_files $uri =404;
-	}
-
-	location ~ ^/api(/.*)$ {
-		set $php_uri $1;
+		set $php_uri $request_uri;
 
 		try_files $uri /index.php?$query_string;
 	}
@@ -27,8 +19,6 @@ server {
 	}
 
 	location ~ \.php$ {
-		root /var/www/io.bidtorrent.api;
-
 		set $cache_bypass 1;
 
 		if ($php_uri = "/bidders") {
