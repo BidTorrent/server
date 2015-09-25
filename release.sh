@@ -37,6 +37,7 @@ deploy()
 
 #	deploy <repo>			<from_root>			<from_deploy> <to_host>		<to_path>	<to_cmd>
 (
+	deploy api				.					src		nginx@bidtorrent.io	/var/www/io.bidtorrent.api &&
 	deploy bidder-criteo	.					src		nginx@bidtorrent.io	/var/www/io.bidtorrent.test &&
 	deploy client-js		.					build	nginx@bidtorrent.io	/var/www/io.bidtorrent &&
 	deploy configuration-ui	configuration-ui	bin		nginx@bidtorrent.io	/var/www/io.bidtorrent.www &&

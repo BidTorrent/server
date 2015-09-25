@@ -8,5 +8,7 @@ server {
 	add_header 'Access-Control-Allow-Credentials' 'true';
 	add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
 
+	set $php_uri $request_uri;
+
 	include /etc/nginx/profiles/php.conf;
 }

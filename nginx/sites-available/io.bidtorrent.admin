@@ -4,5 +4,7 @@ server {
 
 	root /var/www/io.bidtorrent.admin;
 
+	set $php_uri $request_uri;
+
 	include /etc/nginx/profiles/php.conf;
 }
