@@ -1,6 +1,6 @@
 
 server {
-	server_name api.bidtorrent.io;
+	server_name api.bidtorrent.io log.bidtorrent.io stats.bidtorrent.io;
 
 	root /var/www/io.bidtorrent.api;
 
@@ -12,6 +12,18 @@ server {
 		set $php_uri $request_uri;
 
 		try_files $uri /index.php?$query_string;
+	}
+
+	location = /debug {
+		set $php_uri /debug.php;
+
+		try_files $uri /debug.php?$query_string;
+	}
+
+	location = /imp {
+		set $php_uri /imp.php;
+
+		try_files $uri /imp.php?$query_string;
 	}
 
 	location ~ \.p12$ {
