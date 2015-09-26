@@ -4,9 +4,13 @@ server {
 
 	root /var/www/io.bidtorrent;
 
-	include /etc/nginx/profiles/static.conf;
+	include /etc/nginx/profiles/error.conf;
 
     location = / {
         rewrite ^ http://www.bidtorrent.io/;
     }
+
+	location / {
+		include /etc/nginx/locations/static.conf;
+	}
 }

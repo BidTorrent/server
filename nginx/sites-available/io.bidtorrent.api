@@ -4,10 +4,6 @@ server {
 
 	root /var/www/io.bidtorrent.api;
 
-	add_header 'Access-Control-Allow-Origin' "$http_origin";
-	add_header 'Access-Control-Allow-Credentials' 'true';
-	add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
-
 	location / {
 		set $php_uri $request_uri;
 
@@ -31,6 +27,10 @@ server {
 	}
 
 	location ~ \.php$ {
+		add_header 'Access-Control-Allow-Origin' "$http_origin";
+		add_header 'Access-Control-Allow-Credentials' 'true';
+		add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+
 		set $cache_bypass 1;
 
 		if ($php_uri = "/bidders") {
