@@ -13,7 +13,7 @@ server {
 	}
 
 	location /js/ {
-		include /etc/nginx/locations/static.conf;
+		include /etc/nginx/locations/js.conf;
 	}
 
     location ~ ^/api(/.*\.php)$ {
